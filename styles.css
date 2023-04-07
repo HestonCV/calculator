@@ -3,6 +3,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 100px;
+    padding-top: 225px;
     overflow: hidden;
     background-color: deepskyblue;
 }
@@ -58,15 +59,18 @@ body {
     margin-top: 25px;
     display: flex;
     flex-direction: column;
+    background: rgb(149, 149, 149);
+    padding: 10px;
+    border-radius: 10px;
     gap: 10px;
 }
 
 button {
     flex: 0;
-    min-width: 105px;
-    min-height: 105px;
-    max-width: 105px;
-    max-height: 105px;
+    min-width: 100px;
+    min-height: 100px;
+    max-width: 100px;
+    max-height: 100px;
     flex: 1;
 
     border-width: 5px;
