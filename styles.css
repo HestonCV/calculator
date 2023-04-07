@@ -71,7 +71,6 @@ button {
     min-height: 100px;
     max-width: 100px;
     max-height: 100px;
-    flex: 1;
 
     border-width: 5px;
     border-radius: 10px;
@@ -80,12 +79,16 @@ button {
     font-size: 60px;
 }
 
+.pressed {
+    transform: scale(.95);
+}
+
 button:hover {
     background-color: rgb(205, 205, 205);
 }
 
 /*individual button styling*/
-#clear, #off {
+#clear, #off, #backspace {
     color: white;
     background-color: rgb(255, 49, 49);
     font-size: 36px;
@@ -96,7 +99,9 @@ button:hover {
 }
 #off {
     margin-left:auto;
-    background: rgb(96, 96, 96);
+    min-width: 95px;
+    min-height: 70px;
+    background: rgb(107, 107, 107);
 }
 
 #off:hover {
@@ -107,6 +112,10 @@ button:hover {
     min-width: 110px;
 }
 
-#clear:hover {
+#clear:hover, #backspace:hover {
     background-color: rgb(217, 44, 44);
+}
+
+#backspace {
+    min-width: 100px;
 }

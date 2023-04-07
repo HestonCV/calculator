@@ -14,6 +14,41 @@ function clearDisplay()
     display.textContent = "0";
 }
 
+function backSpace()
+{
+    
+    const display = document.querySelector("#display-text");
+
+    if(currentNumber)
+    {
+        //remove the number from data
+        currentNumber = currentNumber.slice(0, -1);
+
+        //remove the number from display
+        display.textContent = display.textContent.slice(0, -1);
+        if(display.textContent === "")
+        {
+            clearDisplay();
+            clearData();
+        }
+    }
+    else
+    {
+        if(display.textContent[display.textContent.length - 1] === " ")
+        {
+            console.log("test");
+            //remove the operator from data
+            operators.pop();
+
+            //remove the operator from the screen
+            display.textContent = display.textContent.slice(0, -3);
+            currentNumber = numbers[numbers.length - 1];
+            numbers = numbers.slice(0, numbers.length - 1);
+        }
+    }
+}    
+
+
 
 function updateDisplay(input) {
     const display = document.querySelector("#display-text");
@@ -27,6 +62,11 @@ function updateDisplay(input) {
             clearDisplay();
             return;
         }
+        else if(input == "backspace")
+        {
+            backSpace();
+            return;
+        }
         else if(input === "off")
         {
             off = true;
@@ -36,14 +76,12 @@ function updateDisplay(input) {
         }
         else if(input === "+" || input === "x" || input === "-" || input === "/")
         {
-            console.log("operators: " + operators.length);
-            console.log("numbers: " + numbers.length);
-            if((operators.length <= numbers.length) && display.textContent !== "")
+            if(currentNumber)
             {
+                currentNumber = "";
                 display.textContent = display.textContent + " " + input + " ";
                 return;
             }
-            display.textContent = "0";
             return;
         }
     }
@@ -58,10 +96,11 @@ function updateDisplay(input) {
         }
         return;
     }
-    if(currentNumber.length < 10 && display.textContent.length < 21)
+    if(currentNumber.length < 10 && display.textContent.length < 20)
     {
         if(input !== "=")
         {
+            
             display.textContent = display.textContent + input;
         }
     }
@@ -79,18 +118,20 @@ function clearData()
 function updateData(input)
 {
     const display = document.querySelector("#display-text");
-    console.log("input: " + input);
     if(input === "clear")
     {
         clearData();
         return;
     }
+    else if(input === "backspace")
+    {
+        return;
+    }
     else if(input === "+" || input === "x" || input === "-" || input === "/")
     {
-        if(operators.length <= numbers.length && display.textContent !== "0")
+        if(currentNumber)
         {
             numbers.push(currentNumber);
-            currentNumber = "";
             operators.push(input);
             return;
         }
@@ -101,14 +142,12 @@ function updateData(input)
         //calculate
         numbers.push(currentNumber);
         currentNumber = "";
-        console.table(numbers);
-        console.table(operators);
         calculate();
         return;
     }
 
-    if(currentNumber.length < 10 && display.textContent.length < 21)
-    {
+    if(currentNumber.length < 10 && display.textContent.length < 20)
+    {  
         currentNumber = currentNumber + input;
     }
     
@@ -120,6 +159,8 @@ function displayAnswer(answer)
     clearDisplay();
     const display = document.querySelector("#display-text")
     display.textContent = `${answer}`;
+    if(!answer) display.textContent = "0";
+
 }
 
 function add(num1, num2)
@@ -193,7 +234,7 @@ const buttons = document.querySelectorAll("button");
 console.log(buttons);
 buttons.forEach(button => {
     button.addEventListener("click", (e) => {
-        console.log(e.target.id);
+        button.classList.add("pressed");
         if(!off)
         {
             updateData(`${e.target.id}`);
@@ -203,5 +244,11 @@ buttons.forEach(button => {
         {
             updateDisplay(`${e.target.id}`);
         }
+
+        
+        // add timeout function to toggle transition class after 2 seconds
+        setTimeout(function() {
+            button.classList.remove('pressed');
+        }, 100);
     });
 });
