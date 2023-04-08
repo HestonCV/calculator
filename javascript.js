@@ -100,7 +100,6 @@ function updateDisplay(input) {
     {
         if(input !== "=")
         {
-            
             display.textContent = display.textContent + input;
         }
     }
@@ -177,7 +176,20 @@ function multiply(num1, num2)
 }
 function divide(num1, num2)
 {
-    return parseFloat(num1) / parseFloat(num2);
+    if(parseFloat(num2) === parseFloat(0))
+    {
+        const display = document.querySelector("#display-text");
+        display.textContent = "ERROR: Divide By Zero";
+
+        setTimeOut(function () {
+            clearData();
+            clearDisplay();
+        }, 500);
+    }
+    else
+    {
+        return parseFloat(num1) / parseFloat(num2);
+    }
 }
 
 
