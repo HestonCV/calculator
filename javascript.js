@@ -34,9 +34,9 @@ function backSpace()
     }
     else
     {
+        console.log(display.textContent);
         if(display.textContent[display.textContent.length - 1] === " ")
         {
-            console.log("test");
             //remove the operator from data
             operators.pop();
 
@@ -45,6 +45,12 @@ function backSpace()
             currentNumber = numbers[numbers.length - 1];
             numbers = numbers.slice(0, numbers.length - 1);
         }
+        else if(display.textContent === "")
+        {
+            display.textContent = "0";
+            return;
+        }
+        return;
     }
 }    
 
@@ -205,8 +211,6 @@ function calculate()
             numbers.splice(index, 2);
             numbers.splice(index, 0, `${calculation}`);
             operators.splice(index, 1);
-            console.log(numbers);
-            console.log(operators);
         }
         else if((index = operators.indexOf("/")) !== -1)
         {
@@ -214,8 +218,6 @@ function calculate()
             numbers.splice(index, 2);
             numbers.splice(index, 0, `${calculation}`);
             operators.splice(index, 1);
-            console.log(numbers);
-            console.log(operators);
         }
         else if((index = operators.indexOf("+")) !== -1)
         {
@@ -223,8 +225,6 @@ function calculate()
             numbers.splice(index, 2);
             numbers.splice(index, 0, `${calculation}`);
             operators.splice(index, 1);
-            console.log(numbers);
-            console.log(operators);
         }
         else if((index = operators.indexOf("-")) !== -1)
         {
@@ -232,8 +232,6 @@ function calculate()
             numbers.splice(index, 2);
             numbers.splice(index, 0, `${calculation}`);
             operators.splice(index, 1);
-            console.log(numbers);
-            console.log(operators);
         }
     }
     let answer = numbers[0];
@@ -243,7 +241,6 @@ function calculate()
 
 //check for button clicks
 const buttons = document.querySelectorAll("button");
-console.log(buttons);
 buttons.forEach(button => {
     button.addEventListener("click", (e) => {
         button.classList.add("pressed");
